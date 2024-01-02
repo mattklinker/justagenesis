@@ -2,3 +2,9 @@ baseURL = 'https://justagenesis.com/'
 languageCode = 'en-us'
 title = 'Its just a Genesis!'
 theme = 'ananke'
+
+[deployment]
+[[deployment.targets]]
+
+name = "production"
+URL = "s3://justagenesis-mak-1?region=us-east-2"
