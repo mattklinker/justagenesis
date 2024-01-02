@@ -55,16 +55,33 @@ jobs:
             --minify \
             --baseURL "${BASE_URL}/"
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload publish artifact
+        uses: actions/upload-artifact@v4
         with:
+          name: publish-artifact
           path: ./public
-
+      - name: Upload deploy config
+        uses: actions/upload-artifact@v4
+        with:
+          name: publish-config
+          path: ./hugo.toml
   # Deployment job
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    env:
+      HUGO_VERSION: 0.120.4
     steps:
+      - name: Install Hugo CLI
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      - name: Download publish artifact
+        uses: actions/download-artifact@v3
+        with:
+          path: artifacts
+          pattern: publish-*
+          merge-multiple: true
       - name: Deploy with Hugo
         id: deployment
         run: |
