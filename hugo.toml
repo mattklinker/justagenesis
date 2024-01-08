@@ -1,4 +1,4 @@
-baseURL = 'https://justagenesis.com/'
+baseURL = 'https://www.justagenesis.com/'
 languageCode = 'en-us'
 title = 'Its just a Genesis!'
 theme = 'ananke'
@@ -7,4 +7,4 @@ theme = 'ananke'
 [[deployment.targets]]
 
 name = "production"
-URL = "s3://justagenesis-mak-1?region=us-east-2"
+URL = "s3://www.justagenesis.com?region=us-east-2"
